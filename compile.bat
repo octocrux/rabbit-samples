@@ -7,5 +7,11 @@ rem csc /out:Worker.exe /r:"RabbitMQ.Client.dll" Worker.cs
 rem csc /r:"RabbitMQ.Client.dll" EmitLogs.cs
 rem csc /r:"RabbitMQ.Client.dll" ReceiveLogs.cs
 
-csc /r:"RabbitMQ.Client.dll" EmitLogDirect.cs
-csc /r:"RabbitMQ.Client.dll" ReceiveLogsDirect.cs
+rem csc /r:"RabbitMQ.Client.dll" EmitLogDirect.cs
+rem csc /r:"RabbitMQ.Client.dll" ReceiveLogsDirect.cs
+
+rem csc /r:"RabbitMQ.Client.dll" ReceiveLogsTopic.cs
+rem csc /r:"RabbitMQ.Client.dll" EmitLogTopic.cs
+
+csc /r:"RabbitMQ.Client.dll" RPCServer.cs
+csc /r:"RabbitMQ.Client.dll" RPCClient.cs
