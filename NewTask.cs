@@ -2,20 +2,22 @@ using System;
 using RabbitMQ.Client;
 using System.Text;
 
-class Send
+class NewTask
 {
   public static void Main(string[] args){
     var factory = new ConnectionFactory(){ HostName = "localhost" };
     using(var connection = factory.CreateConnection()){
       using(var channel = connection.CreateModel()){
-        channel.QueueDeclare("hello", false, false, false, null);
+        bool durable = true;
+        channel.QueueDeclare("task_queue", durable, false, false, null);
 
         var message = GetMessage(args);
         var body = Encoding.UTF8.GetBytes(message);
        	var properties = channel.CreateBasicProperties();
-       	properties.DeliveryMode = 2;
+        properties.SetPersistent(true);
+       	//properties.DeliveryMode = 2;
 
-        channel.BasicPublish("", "hello", null, body);
+        channel.BasicPublish("", "task_queue", null, body);
         Console.WriteLine(" [x] Sent {0}", message);
       }
     }
