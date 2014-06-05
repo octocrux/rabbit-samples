@@ -3,15 +3,12 @@ using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using System.Text;
 
-class ReceiveLogs
-{
-    public static void Main()
-    {
+class ReceiveLogs {
+
+    public static void Main() {
         var factory = new ConnectionFactory() { HostName = "localhost" };
-        using (var connection = factory.CreateConnection())
-        {
-            using (var channel = connection.CreateModel())
-            {
+        using (var connection = factory.CreateConnection()) {
+            using (var channel = connection.CreateModel()) {
                 channel.ExchangeDeclare("logs", "fanout");
 
                 var queueName = channel.QueueDeclare().QueueName;
@@ -22,8 +19,7 @@ class ReceiveLogs
 
                 Console.WriteLine(" [*] Waiting for logs." +
                                   "To exit press CTRL+C");
-                while (true)
-                {
+                while (true) {
                     var ea = (BasicDeliverEventArgs)consumer.Queue.Dequeue();
 
                     var body = ea.Body;
@@ -33,4 +29,5 @@ class ReceiveLogs
             }
         }
     }
+    
 }
